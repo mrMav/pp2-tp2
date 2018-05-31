@@ -8,31 +8,60 @@
 #include "Types.h"
 #include "InfoOutput.h"
 #include "CreateFunctions.h"
+#include "Hashtable.h"
+#include "Utils.h"
 
 int main() {
-		
+	
 	Airplane* DaVinci = CreateAirplane("DaVinci", 12);
-
-	PrintAirplane(DaVinci);
+	//PrintAirplane(DaVinci);
 
 	DaVinci->Seats[0]->IsOccupied = 1;
 	strcpy(DaVinci->Seats[0]->PassengerName, "Jorge Noro");
 
 	Flight* flight1 = CreateFlight(
 
-		0,
+		1,
 		CreateDate(31, 5, 2018, 18, 20, 20),
-		NULL,
+		CreateDate(31, 5, 2018, 19, 20, 20),
 		DaVinci->SeatsNumber,
-		DaVinci->Seats,
+		CloneSeatsFromAirplane(DaVinci),
 		DaVinci->ShuttleName
 
 	);
 
-	PrintFlight(flight1);
+	DaVinci->Seats[1]->IsOccupied = 1;
+	strcpy(DaVinci->Seats[1]->PassengerName, "Ângela Torres");
 
+	Flight* flight2 = CreateFlight(
 
+		0,
+		CreateDate(1, 6, 2018, 18, 20, 20),
+		NULL,
+		DaVinci->SeatsNumber,
+		CloneSeatsFromAirplane(DaVinci),
+		DaVinci->ShuttleName
 
+	);
+
+	Flight* flight3 = CreateFlight(
+
+		0,
+		CreateDate(1, 6, 2019, 18, 20, 20),
+		NULL,
+		DaVinci->SeatsNumber,
+		CloneSeatsFromAirplane(DaVinci),
+		DaVinci->ShuttleName
+
+	);
+
+	HashTable* flights = CreateHashTable();
+
+	AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(flight1), flight1));
+	AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(flight2), flight2));
+	AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(flight3), flight3));
+
+	PrintHashTable(flights);
 
 	getchar();
 	return 0;

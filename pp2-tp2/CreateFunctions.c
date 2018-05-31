@@ -31,6 +31,7 @@
 
 #include "Types.h"
 #include "CreateFunctions.h"
+#include "Utils.h"
 
 /*
 Creates a Seat
@@ -122,6 +123,11 @@ struct tm* CreateDate(int day, int month, int year, int hour, int minutes, int s
 	date->tm_min = minutes;
 	date->tm_sec = seconds;
 	date->tm_isdst = -1;
+
+	time_t t = mktime(date);
+	struct tm* dateCalculated = localtime(&t);
+	
+	date = CloneStructtm(dateCalculated);
 
 	return date;
 

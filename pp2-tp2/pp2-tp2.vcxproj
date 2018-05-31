@@ -116,13 +116,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CreateFunctions.c" />
+    <ClCompile Include="Hashtable.c" />
     <ClCompile Include="InfoOutput.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="Utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CreateFunctions.h" />
+    <ClInclude Include="Hashtable.h" />
     <ClInclude Include="InfoOutput.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -106,7 +106,7 @@ void PrintFlight(Flight* flight) {
 	else {
 	
 		strftime(timeString, 80, "%d/%m/%Y %H:%M", flight->Arrive);
-		printf("Departure: %s\n", timeString);
+		printf("Arrive: %s\n", timeString);
 
 	}	
 	
