@@ -74,3 +74,55 @@ Airplane* CreateAirplane(char name[], unsigned int seatsNumber) {
 	return a;
 
 }
+
+/*
+Create a flight
+*/
+Flight* CreateFlight(int status, struct tm* departure, struct tm* arrive, unsigned int seatsNumber, Seat** seats, char airplaneName[]) {
+
+	Flight* f = (Flight*)malloc(sizeof(Flight));
+
+	if (f == NULL) {
+
+		return NULL;
+
+	}
+
+	f->Status = status;
+	f->Departure = departure;
+	f->Arrive = arrive;
+	f->SeatsNumber = seatsNumber;
+	f->Seats = seats;
+	strcpy(f->AirplaneName, airplaneName);
+
+	return f;
+
+}
+
+/*
+Create a date structure
+http://pubs.opengroup.org/onlinepubs/7908799/xsh/time.h.html
+*/
+struct tm* CreateDate(int day, int month, int year, int hour, int minutes, int seconds) {
+
+	struct tm* date = malloc(sizeof(struct tm));
+	
+	if (date == NULL) {
+
+		return NULL;
+
+	}
+
+	date->tm_year = year - 1900;  // notice the - 1900;
+	date->tm_mon = month - 1;     // notice the - 1
+	date->tm_mday = day;
+
+	// init rest of components
+	date->tm_hour = hour;
+	date->tm_min = minutes;
+	date->tm_sec = seconds;
+	date->tm_isdst = -1;
+
+	return date;
+
+}

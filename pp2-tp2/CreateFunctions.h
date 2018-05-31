@@ -34,12 +34,22 @@
 /*
 Creates a Seat
 */
-Seat* CreateSeat();
+Seat* CreateSeat(unsigned int number);
 
 /*
 Creates an airplane
 */
 Airplane* CreateAirplane(char name[], unsigned int seatsNumber);
+
+/*
+Create a flight
+*/
+Flight* CreateFlight(int status, struct tm* departure, struct tm* arrive, unsigned int seatsNumber, Seat** seats, char airplaneName[]);
+
+/*
+Create a date structure
+*/
+struct tm* CreateDate(int day, int month, int year, int hour, int minutes, int seconds);
 
 #endif // !CREATEFUNCTIONS
 

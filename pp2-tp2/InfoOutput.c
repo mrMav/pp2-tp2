@@ -73,3 +73,60 @@ void PrintAirplane(Airplane* airplane) {
 	}
 	printf("---\n");
 };
+
+/*
+Prints a flight
+*/
+void PrintFlight(Flight* flight) {
+
+	if (flight == NULL) {
+
+		printf("'flight' argument was NULL.\n");
+
+		return;
+
+	}
+	
+	char timeString[80];
+
+	printf("---\n");
+
+	printf("Flight Status: %s\n", flight->Status == 0 ? "Awaiting" : "Accomplished");
+	printf("Aircraft: %s\n", flight->AirplaneName);
+
+	
+	strftime(timeString, 80, "%d/%m/%Y %H:%M", flight->Departure);
+	printf("Departure: %s\n", timeString);
+	
+	if (flight->Status == 0) {
+
+		printf("Arrive: Flight not accomplished yet.\n");
+
+	}
+	else {
+	
+		strftime(timeString, 80, "%d/%m/%Y %H:%M", flight->Arrive);
+		printf("Departure: %s\n", timeString);
+
+	}	
+	
+	int unoccupiedSeats = 0;
+	for (unsigned int i = 0; i < flight->SeatsNumber; i++) {
+
+		if (flight->Seats[i]->IsOccupied) {
+		
+			PrintSeat(flight->Seats[i]);
+
+		}
+		else {
+
+			unoccupiedSeats++;
+
+		}
+		
+	}
+	printf("Unoccupied Seats: %i\n", unoccupiedSeats);
+
+	printf("---\n");
+
+}

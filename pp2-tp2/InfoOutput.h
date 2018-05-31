@@ -41,5 +41,10 @@ Prints an airplane
 */
 void PrintAirplane(Airplane* airplane);
 
+/*
+Prints a flight
+*/
+void PrintFlight(Flight* flight);
+
 #endif // !INFOOUTPUT
 

@@ -26,6 +26,8 @@
 #ifndef TYPES
 #define TYPES
 
+#include <time.h>
+
 /*
 Defines a seat in the airplane
 */
@@ -55,6 +57,30 @@ typedef struct Airplane {
 	
 } Airplane;
 
+/*
+Defines a flight data structure
+*/
+typedef struct Flight {
+
+	// 0: awaiting, 1: accomplished 
+	int Status;
+
+	// departure time
+	struct tm* Departure;
+
+	// arrive time
+	struct tm* Arrive;
+
+	// number of seats
+	unsigned int SeatsNumber;
+
+	// list of the seats status in the flight
+	Seat** Seats;
+
+	// the airplane that will perform this flight
+	char AirplaneName[100];
+
+} Flight;
 
 
 #endif // !TYPES
