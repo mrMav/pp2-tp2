@@ -95,7 +95,8 @@ Flight* CreateFlight(int status, struct tm* departure, struct tm* arrive, unsign
 	f->SeatsNumber = seatsNumber;
 	f->Seats = seats;
 	strcpy(f->AirplaneName, airplaneName);
-
+	sprintf(f->ID, "%04d%02d%02d%02d%02d", departure->tm_year+1900, departure->tm_mon+1, departure->tm_mday, departure->tm_hour, departure->tm_min);
+	
 	return f;
 
 }

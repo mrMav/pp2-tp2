@@ -66,6 +66,8 @@ Node* GetNodeByKeyInList(Node* head, int key);
 
 Node* GetNodeByKeyInHashTable(HashTable* ht, int key);
 
+Flight* CheckHashTableForFlightID(HashTable* ht, char* ID);
+
 int HashFunction(int key);
 
 void PrintCompleteHashTable(HashTable* ht);

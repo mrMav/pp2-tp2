@@ -80,6 +80,9 @@ typedef struct Flight {
 	// the airplane that will perform this flight
 	char AirplaneName[100];
 
+	// unique identifier
+	char ID[13];
+
 } Flight;
 
 

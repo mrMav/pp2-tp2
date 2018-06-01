@@ -122,7 +122,7 @@ int AddNodeToHashTable(HashTable* ht, Node* n) {
 
 	}
 	else {
-
+		
 		AddNodeAfter(ht->table[index], n);
 
 	}
@@ -215,6 +215,39 @@ Node* RemoveNodeFromHashTable(HashTable* ht, int key) {
 		previous = current;
 		current = current->next;
 
+	}
+
+	return NULL;
+
+}
+
+/*
+Returns flight data from the hashtable, by the unique identifier
+*/
+Flight* CheckHashTableForFlightID(HashTable* ht, char* ID) {
+
+	// error handling
+	if (ht == NULL) {
+
+		return NULL;
+
+	}
+
+	for (int i = 0; i < HASH_MAX_SIZE; i++) {
+
+		Node* head = ht->table[i];
+		
+		while (head != NULL) {
+
+			if (strcmp(head->flightData->ID, ID) == 0) {
+
+				return head->flightData;
+
+			}
+
+			head = head->next;
+		}
+		
 	}
 
 	return NULL;

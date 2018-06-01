@@ -72,7 +72,18 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 
 	);
 
-	AddNodeToHashTable(ht, CreateNode(GetYearDayFromFlight(f), f));
+	// only add the flight if it is unique
+	if (CheckHashTableForFlightID(ht, f->ID) == NULL) {
+
+		AddNodeToHashTable(ht, CreateNode(GetYearDayFromFlight(f), f));
+
+	}
+	else {
+
+		free(f);
+		f = NULL;
+
+	}
 
 	return f;
 
