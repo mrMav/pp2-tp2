@@ -20,36 +20,24 @@
 	</license>
 	<author> Jorge Noro </author>
 	<version>1.0.0</version>
-	<summary>Output information to the user</summary>
+	<summary>User functions definition</summary>
 */
 
-#ifndef INFOOUTPUT
-#define INFOOUTPUT
+#ifndef USERFUNCTIONS
+#define USERFUNCTIONS
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "Types.h"
+#include "Hashtable.h"
 
 /*
-Prints a Seat
+Let's the user create a new flight
 */
-void PrintSeat(Seat* seat);
+Flight* CreateNewFlight(HashTable* ht, Airplane* airplane);
 
-/*
-Prints an airplane
-*/
-void PrintAirplane(Airplane* airplane);
 
-/*
-Prints a flight
-*/
-void PrintFlight(Flight* flight);
-
-/*
-Prints a line with the specified size of characters
-*/
-void PrintLine(int size);
-
-#endif // !INFOOUTPUT
+#endif // !USERFUNCTIONS
 

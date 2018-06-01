@@ -68,6 +68,8 @@ Node* GetNodeByKeyInHashTable(HashTable* ht, int key);
 
 int HashFunction(int key);
 
+void PrintCompleteHashTable(HashTable* ht);
+
 void PrintHashTable(HashTable* ht);
 
 void DeleteNode(Node** node);

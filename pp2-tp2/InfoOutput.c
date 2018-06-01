@@ -130,3 +130,15 @@ void PrintFlight(Flight* flight) {
 	printf("---\n");
 
 }
+
+/*
+Prints a line with the specified size of characters
+*/
+void PrintLine(int size) {
+
+	for (int i = 0; i < size; i++) {
+		printf("-");
+	}
+	printf("\n");
+
+};

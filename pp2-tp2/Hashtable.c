@@ -237,6 +237,37 @@ int HashFunction(int key) {
 
 }
 
+void PrintCompleteHashTable(HashTable* ht) {
+
+	if (ht == NULL) {
+
+		return;
+
+	}
+
+	for (int i = 0; i < HASH_MAX_SIZE; i++) {
+
+		Node* head = ht->table[i];
+
+		printf("%02i: ", i);
+
+		while (head != NULL) {
+
+			printf("{key: %i, data: \n", head->key);
+
+			PrintFlight(head->flightData);
+
+			printf("next: %p } -> \n", (void*)head->next);
+
+			head = head->next;
+		}
+
+		printf("{ NULL } \n");
+
+	}
+
+}
+
 void PrintHashTable(HashTable* ht) {
 
 	if (ht == NULL) {
@@ -248,6 +279,8 @@ void PrintHashTable(HashTable* ht) {
 	for (int i = 0; i < HASH_MAX_SIZE; i++) {
 
 		Node* head = ht->table[i];
+
+		if (head == NULL) continue;
 
 		printf("%02i: ", i);
 

@@ -43,9 +43,20 @@ Clone a struct tm*
 struct tm* CloneStructtm(struct tm* t);
 
 /*
+From a string int the format yyyy/mm/dd
+returns a pointer to a date
+*/
+struct tm* NewDateFromString(char string[]);
+
+/*
 Clone and return a Seats array from an airplane
 */
 Seat** CloneSeatsFromAirplane(Airplane* plane);
+
+/*
+Clear stdin
+*/
+void ClearInput();
 
 #endif // !UTILS
 

@@ -77,6 +77,40 @@ struct tm* CloneStructtm(struct tm* t) {
 }
 
 /*
+From a string int the format yyyy/mm/dd
+returns a pointer to a date
+*/
+struct tm* NewDateFromString(char string[]) {
+	
+	char ano[5];
+	char mes[3];
+	char dia[3];
+
+	char horas[3];
+	char minutos[3];
+
+	ano[0] = string[0];
+	ano[1] = string[1];
+	ano[2] = string[2];
+	ano[3] = string[3];
+
+	mes[0] = string[5];
+	mes[1] = string[6];
+
+	dia[0] = string[8];
+	dia[1] = string[9];
+
+	horas[0] = string[11];
+	horas[1] = string[12];
+
+	minutos[0] = string[14];
+	minutos[1] = string[15];
+	
+	return CreateDate(atoi(dia), atoi(mes), atoi(ano), atoi(horas), atoi(minutos), 0);
+
+}
+
+/*
 Clone and return a Seats array from an airplane
 */
 Seat** CloneSeatsFromAirplane(Airplane* plane) {
@@ -94,5 +128,16 @@ Seat** CloneSeatsFromAirplane(Airplane* plane) {
 	}
 
 	return s;
+
+}
+
+/*
+Clear stdin
+*/
+void ClearInput() {
+	
+	char c;
+
+	while ((c = getchar()) != '\n' && c != EOF) {}
 
 }

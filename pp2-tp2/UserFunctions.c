@@ -20,36 +20,60 @@
 	</license>
 	<author> Jorge Noro </author>
 	<version>1.0.0</version>
-	<summary>Output information to the user</summary>
+	<summary>User functions implementation</summary>
 */
 
-#ifndef INFOOUTPUT
-#define INFOOUTPUT
+#define _CRT_SECURITY_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "Types.h"
+#include "Hashtable.h"
+#include "CreateFunctions.h"
+#include "UserFunctions.h"
+#include "Utils.h"
 
 /*
-Prints a Seat
+Let's the user create a new flight
 */
-void PrintSeat(Seat* seat);
+Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 
-/*
-Prints an airplane
-*/
-void PrintAirplane(Airplane* airplane);
+	if (ht == NULL || airplane == NULL) {
 
-/*
-Prints a flight
-*/
-void PrintFlight(Flight* flight);
+		return NULL;
 
-/*
-Prints a line with the specified size of characters
-*/
-void PrintLine(int size);
+	}
 
-#endif // !INFOOUTPUT
+	Flight* f = NULL;
+	char buffer[20];
+	struct tm* departureDate;
 
+	// get data from the user
+
+	printf("### Create Flight: ###\n");
+
+	printf("- Input flight date in the format yyyy/mm/dd hh:mm :\n");
+
+	fgets(buffer, sizeof(buffer), stdin);
+	fflush(stdin);
+
+	departureDate = NewDateFromString(buffer);
+
+	f = CreateFlight(
+
+		0,
+		departureDate,
+		NULL,
+		airplane->SeatsNumber,
+		CloneSeatsFromAirplane(airplane),
+		airplane->ShuttleName
+
+	);
+
+	AddNodeToHashTable(ht, CreateNode(GetYearDayFromFlight(f), f));
+
+	return f;
+
+}
