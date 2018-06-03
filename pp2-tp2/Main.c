@@ -30,7 +30,11 @@ int main() {
 		printf("ESTAir - Flight Management\n");
 		printf("0. Exit\n");
 		printf("1. Create new flight\n");
-		printf("2. List all flights\n");
+		printf("2. Book flight seat\n");
+		printf("3. Cancel booking\n");
+		printf("4. Print a specified flight\n");
+		printf("5. List all flights\n");
+		printf("8. Help\n");
 		printf("x. Update Flights Status\n");
 
 
@@ -52,28 +56,92 @@ int main() {
 			// 1 allows to create a new flight
 		case 1:
 
-			{
-				Flight* f = CreateNewFlight(flights, DaVinci);
+		{
+			Flight* f = CreateNewFlight(flights, DaVinci);
 
-				if (f != NULL) {
+			if (f != NULL) {
 
-					printf("Successfuly created flight:\n");
-					PrintFlight(f);
+				printf("Successfuly created flight:\n");
+				PrintFlight(f);
 					
-				}
-				else {
-
-					printf("An error occurred while creating the flight.\n");
-
-				};
-
 			}
+			else {
+
+				printf("An error occurred while creating the flight.\n");
+
+			};
+
+		}
 
 			option = -1;
 			break;
 
-			// 2 prints all flights
+			// 2 allows to book a seat
 		case 2:
+		{
+			char buffer[13];
+
+			// get input
+			printf("### Check Flight Seats: ###\n");
+
+			printf("- Input flight ID:\n");
+
+			fgets(buffer, sizeof(buffer), stdin);
+			ClearInput();
+
+			if (CheckFlightForSeats(flights, buffer) >= 0) {
+
+				unsigned int seatPosition = 0;
+
+				printf("- Input seat Number:\n");
+				scanf("%i", &seatPosition);
+				ClearInput();
+
+				BookFlightSeat(flights, buffer, seatPosition);
+
+			}
+			else {
+
+				printf("An error occurred while booking the flight.\n");
+
+			}
+
+		}
+			option = -1;
+			break;
+
+			// 3 prints a selected flight
+		case 3:
+		{
+			char buffer[13];
+
+			// get input
+			printf("### Print Flight: ###\n");
+
+			printf("- Input flight ID:\n");
+
+			fgets(buffer, sizeof(buffer), stdin);
+			ClearInput();
+
+			Flight* f = CheckHashTableForFlightID(flights, buffer);
+
+			if (f != NULL) {
+
+				PrintFlight(f);
+
+			}
+			else {
+
+				printf("The flight with id \"%s\" could not be found.\n", buffer);
+
+			}
+
+		}
+			option = -1;
+			break;
+
+			// 4 prints all flights
+		case 4:
 
 			PrintHashTable(flights);
 
@@ -82,32 +150,39 @@ int main() {
 
 			// 9 fills with some flights to test
 		case 9:
-			{
-				Flight* f = CreateFlight(
-					0,
-					CreateDate(1, 6, 2019, 18, 20, 20),
-					NULL,
-					DaVinci->SeatsNumber,
-					CloneSeatsFromAirplane(DaVinci),
-					DaVinci->ShuttleName
-				);
+		{
+			Flight* f = CreateFlight(
+				0,
+				CreateDate(1, 6, 2019, 18, 20, 20),
+				NULL,
+				DaVinci->SeatsNumber,
+				CloneSeatsFromAirplane(DaVinci),
+				DaVinci->ShuttleName
+			);
 
-				AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
 
-				f = CreateFlight(
-					0,
-					CreateDate(17, 8, 2018, 18, 20, 20),
-					NULL,
-					DaVinci->SeatsNumber,
-					CloneSeatsFromAirplane(DaVinci),
-					DaVinci->ShuttleName
-				);
+			f = CreateFlight(
+				0,
+				CreateDate(17, 8, 2018, 18, 20, 20),
+				NULL,
+				DaVinci->SeatsNumber,
+				CloneSeatsFromAirplane(DaVinci),
+				DaVinci->ShuttleName
+			);
 
-				AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
-			}
+			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+		}
 
 			option = -1;
 			break;
+
+		case 8:
+
+			PrintLine(10);
+			printf("### Help topics: ###.\n");
+			printf("-> The flights ID are in the format yyyymmddhhmm.\n");
+			PrintLine(10);
 
 		default:
 

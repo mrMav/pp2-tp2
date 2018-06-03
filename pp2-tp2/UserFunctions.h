@@ -34,9 +34,29 @@
 #include "Hashtable.h"
 
 /*
-Let's the user create a new flight
+Lets the user create a new flight
 */
 Flight* CreateNewFlight(HashTable* ht, Airplane* airplane);
+
+/*
+Check for flight empty seats
+*/
+int CheckFlightForSeats(HashTable* ht, char id[]);
+
+/*
+Lets the user book a seat
+*/
+int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition);
+
+/*
+Set a seat to a passenger
+*/
+Seat* SetPassengerSeat(Seat* seat, char name[]);
+
+/*
+Set a seat free
+*/
+Seat* FreePassengerSeat(Seat* seat);
 
 
 #endif // !USERFUNCTIONS

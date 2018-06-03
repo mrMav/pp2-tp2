@@ -23,7 +23,7 @@
 	<summary>User functions implementation</summary>
 */
 
-#define _CRT_SECURITY_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,7 +36,7 @@
 #include "Utils.h"
 
 /*
-Let's the user create a new flight
+Lets the user create a new flight
 */
 Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 
@@ -57,7 +57,7 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 	printf("- Input flight date in the format yyyy/mm/dd hh:mm :\n");
 
 	fgets(buffer, sizeof(buffer), stdin);
-	fflush(stdin);
+	ClearInput();
 
 	departureDate = NewDateFromString(buffer);
 
@@ -86,5 +86,107 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 	}
 
 	return f;
+
+}
+
+/*
+Check for flight empty seats
+*/
+int CheckFlightForSeats(HashTable* ht, char id[]) {
+
+	if (ht == NULL) {
+
+		return -1;
+
+	}
+	
+	Flight* flight = CheckHashTableForFlightID(ht, id);
+
+	if (flight != NULL) {
+
+		//flight exists, lets check for available seats
+
+		printf("\nAvailable Seats: ");
+
+		int nAvailableSeats = 0;
+
+		for (unsigned int i = 0; i < flight->SeatsNumber; i++) {
+
+			if (flight->Seats[i]->IsOccupied == 0) {
+
+				nAvailableSeats++;
+
+				printf("%02i ", i + 1);
+
+			}
+
+		}
+
+		printf("\nNumber of available seats: %i\n", nAvailableSeats);
+
+		return 0;
+
+	}
+	else {
+
+		return -2;
+
+	}
+
+}
+
+/*
+Lets the user book a seat
+*/
+int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition) {
+
+	if (ht == NULL) {
+
+		return -1;
+
+	}
+	
+	Flight* flight = CheckHashTableForFlightID(ht, id);
+	
+	if (flight != NULL) {
+	
+		if (flight->Seats[seatPosition - 1]->IsOccupied == 0) {
+
+			printf("- Seat is available. Please input passenger name:\n");
+			
+			char buffer[100];
+
+			fgets(buffer, sizeof(buffer), stdin);
+			ClearInput();
+
+			SetPassengerSeat(flight->Seats[seatPosition - 1], buffer);
+			
+			return 0;
+
+		}
+
+	}
+
+	return -2;
+
+}
+
+/*
+Set a seat to a passenger
+*/
+Seat* SetPassengerSeat(Seat* seat, char name[]) {
+
+	seat->IsOccupied = 1;
+	strcpy(seat->PassengerName, name);
+
+}
+
+/*
+Set a seat free
+*/
+Seat* FreePassengerSeat(Seat* seat) {
+
+	seat->IsOccupied = 0;
+	strcpy(seat->PassengerName, "");
 
 }
