@@ -159,8 +159,12 @@ int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition) {
 			fgets(buffer, sizeof(buffer), stdin);
 			ClearInput();
 
+			buffer[strcspn(buffer, "\n")] = 0;  // takes the new line out, and replaces it with a terminator
+
 			SetPassengerSeat(flight->Seats[seatPosition - 1], buffer);
 			
+			printf("Sucessfuly booked seat!\n");
+
 			return 0;
 
 		}

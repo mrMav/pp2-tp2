@@ -38,7 +38,7 @@
 typedef struct Node {
 
 	int key;
-
+	
 	Flight* flightData;
 
 	struct Node* next;

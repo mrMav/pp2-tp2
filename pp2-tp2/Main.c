@@ -47,13 +47,17 @@ int main() {
 
 		switch (option) {
 
-			// 0 exits the program
+#pragma region [Exit Program]
+
 		case 0:
 
 			exit = 0;
 			break;
 
-			// 1 allows to create a new flight
+#pragma endregion
+
+#pragma region [Create a new flight]
+			
 		case 1:
 
 		{
@@ -76,13 +80,16 @@ int main() {
 			option = -1;
 			break;
 
-			// 2 allows to book a seat
+#pragma endregion
+
+#pragma region [Book flight seat]
+
 		case 2:
 		{
 			char buffer[13];
 
 			// get input
-			printf("### Check Flight Seats: ###\n");
+			printf("### Book flight seat: ###\n");
 
 			printf("- Input flight ID:\n");
 
@@ -110,8 +117,51 @@ int main() {
 			option = -1;
 			break;
 
-			// 3 prints a selected flight
+#pragma endregion
+
+#pragma region [Cancel booking]
+
 		case 3:
+		{
+			char buffer[13];
+
+			// get input
+			printf("### Cancel flight booking: ###\n");
+
+			printf("- Input flight ID:\n");
+
+			fgets(buffer, sizeof(buffer), stdin);
+			ClearInput();
+
+			Flight* f = CheckHashTableForFlightID(flights, buffer);
+
+			if (f != NULL) {
+
+				char name[100];
+
+				printf("- Input passenger name:\n");
+				fgets(buffer, sizeof(buffer), stdin);
+				ClearInput();
+
+				// cancel flight
+
+
+			}
+			else {
+
+				printf("An error occurred while booking the flight.\n");
+
+			}
+
+		}
+		option = -1;
+		break;
+
+#pragma endregion
+
+#pragma region [Print Flight]
+
+		case 4:
 		{
 			char buffer[13];
 
@@ -140,8 +190,11 @@ int main() {
 			option = -1;
 			break;
 
-			// 4 prints all flights
-		case 4:
+#pragma endregion
+
+#pragma region [Print All Flights]
+
+		case 5:
 
 			PrintHashTable(flights);
 
@@ -177,12 +230,21 @@ int main() {
 			option = -1;
 			break;
 
+#pragma endregion
+
+#pragma region [Help Topics]
+
 		case 8:
 
 			PrintLine(10);
 			printf("### Help topics: ###.\n");
 			printf("-> The flights ID are in the format yyyymmddhhmm.\n");
 			PrintLine(10);
+
+			option = -1;
+			break;
+
+#pragma endregion
 
 		default:
 
