@@ -97,5 +97,11 @@ Sets a seat priority
 */
 void SetSeatPriority(Seat* s, int i);
 
+/*
+Prints flight from a specified date range
+*/
+void PrintSpecifiedRange(HashTable* flights, struct tm* start, struct tm* finish);
+
+
 #endif // !USERFUNCTIONS
 

@@ -47,6 +47,11 @@ Prints a flight
 void PrintFlight(Flight* flight);
 
 /*
+Prints a flight pretty
+*/
+void PrintFlightPretty(Flight* flight);
+
+/*
 Prints a line with the specified size of characters
 */
 void PrintLine(int size);

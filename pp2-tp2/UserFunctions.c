@@ -34,6 +34,7 @@
 #include "CreateFunctions.h"
 #include "UserFunctions.h"
 #include "Utils.h"
+#include "InfoOutput.h"
 
 /*
 Lets the user create a new flight
@@ -350,11 +351,11 @@ Flight* GetClosestFlightHoldPassengers(HashTable* ht, int n, Airplane* plane) {
 
 				int year  = previous == NULL ? FIRST_YEAR  : previous->flightData->Departure->tm_year + 1900;
 				int month = previous == NULL ? FIRST_MONTH : previous->flightData->Departure->tm_mon + 1;
-				int day   = previous == NULL ? FIRST_DAY   : previous->flightData->Departure->tm_mday;
+				int day   = previous == NULL ? FIRST_DAY   : previous->flightData->Departure->tm_mday + 1;
 
 				Flight* newFlight = CreateFlight(
 					0,
-					CreateDate(day + 1, month, year, 0, 0, 0),
+					CreateDate(day, month, year, 0, 0, 0),
 					NULL,
 					plane->SeatsNumber,
 					CloneSeatsFromAirplane(plane),
@@ -417,5 +418,40 @@ Sets a seat priority
 void SetSeatPriority(Seat* s, int i) {
 
 	s->IsPriority = i;
+
+}
+
+/*
+Prints flight from a specified date range
+*/
+void PrintSpecifiedRange(HashTable* flights, struct tm* start, struct tm* finish) {
+
+	if (flights == NULL) {
+
+		return;
+
+	}
+
+	time_t startTime = mktime(start);
+	time_t finishTime = mktime(finish);
+
+	for (int i = 0; i < HASH_MAX_SIZE; i++) {
+
+		Node* head = flights->table[i];
+		
+		while (head != NULL) {
+			
+			time_t flightTime = mktime(head->flightData->Departure);
+
+			if (flightTime >= startTime && flightTime <= finishTime) {
+
+				PrintFlightPretty(head->flightData);
+
+			}
+
+			head = head->next;
+		}
+		
+	}
 
 }
