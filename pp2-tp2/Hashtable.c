@@ -269,7 +269,7 @@ int HashFunction(int key) {
 
 	//return sum % HASH_MAX_SIZE;
 
-	return key % HASH_MAX_SIZE;
+	return (key - 1) % HASH_MAX_SIZE;
 
 }
 

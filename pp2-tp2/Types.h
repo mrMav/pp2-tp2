@@ -28,6 +28,10 @@
 
 #include <time.h>
 
+#define FIRST_YEAR 2018
+#define FIRST_MONTH 1
+#define FIRST_DAY 1
+
 /*
 Defines a Key struct to be used on ID creation
 and hashtable lookup

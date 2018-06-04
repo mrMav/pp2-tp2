@@ -54,6 +54,11 @@ Lets the user cancel a reservation
 int CancelBooking(HashTable* ht, long int id);
 
 /*
+Count free seats in flight
+*/
+int CountFreeSeats(Flight* f);
+
+/*
 Set a seat to a passenger
 */
 Seat* SetPassengerSeat(Seat* seat, char name[]);
@@ -72,6 +77,11 @@ long int RequestFlightID();
 request name to user
 */
 void RequestName(char* buffer);
+
+/*
+get closest flight to hold n passengers
+*/
+Flight* GetClosestFlightHoldPassengers(HashTable* ht, int n, Airplane* plane);
 
 #endif // !USERFUNCTIONS
 

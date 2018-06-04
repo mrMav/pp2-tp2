@@ -40,7 +40,7 @@ Extract a key from an id
 */
 int ExtractKeyFromID(long int id) {
 
-	return (int)floor(id / 1000000);
+	return (int)floor(id / 1000000) - 1;
 
 }
 

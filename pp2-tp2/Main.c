@@ -34,6 +34,7 @@ int main() {
 		printf("3. Cancel booking\n");
 		printf("4. Print a specified flight\n");
 		printf("5. List all flights\n");
+		printf("6. Get soonest flight\n");
 		printf("8. Help\n");
 		printf("x. Update Flights Status\n");
 
@@ -180,32 +181,26 @@ int main() {
 			break;
 
 #pragma endregion
+
+#pragma region [Get soonest]
+
+		case 6:
+		{
+			// get input
+			printf("### Get Soonest: ###\n");
+
+			PrintFlight(GetClosestFlightHoldPassengers(flights, 11, DaVinci));
+
+		}
+		option = -1;
+		break;
+
+#pragma endregion
+
 			// 9 fills with some flights to test
 		case 9:
 		{
 			Flight* f = CreateFlight(
-				0,
-				CreateDate(1, 6, 2019, 18, 20, 20),
-				NULL,
-				DaVinci->SeatsNumber,
-				CloneSeatsFromAirplane(DaVinci),
-				DaVinci->ShuttleName
-			);
-
-			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
-
-			f = CreateFlight(
-				0,
-				CreateDate(17, 8, 2018, 18, 20, 20),
-				NULL,
-				DaVinci->SeatsNumber,
-				CloneSeatsFromAirplane(DaVinci),
-				DaVinci->ShuttleName
-			);
-
-			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
-
-			f = CreateFlight(
 				0,
 				CreateDate(1, 1, 2018, 18, 20, 20),
 				NULL,
@@ -214,7 +209,46 @@ int main() {
 				DaVinci->ShuttleName
 			);
 
+			SetPassengerSeat(f->Seats[0], "some dude");
+			SetPassengerSeat(f->Seats[1], "some dude");
+			SetPassengerSeat(f->Seats[2], "some dude");
+
 			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+
+			f = CreateFlight(
+				0,
+				CreateDate(2, 1, 2018, 18, 20, 20),
+				NULL,
+				DaVinci->SeatsNumber,
+				CloneSeatsFromAirplane(DaVinci),
+				DaVinci->ShuttleName
+			);
+
+			SetPassengerSeat(f->Seats[0], "some dude");
+			SetPassengerSeat(f->Seats[1], "some dude");
+			SetPassengerSeat(f->Seats[2], "some dude");
+			SetPassengerSeat(f->Seats[3], "some dude");
+
+
+			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+
+			f = CreateFlight(
+				0,
+				CreateDate(1, 1, 2019, 18, 20, 20),
+				NULL,
+				DaVinci->SeatsNumber,
+				CloneSeatsFromAirplane(DaVinci),
+				DaVinci->ShuttleName
+			);
+
+			SetPassengerSeat(f->Seats[0], "some dude");
+			SetPassengerSeat(f->Seats[1], "some dude");
+			SetPassengerSeat(f->Seats[2], "some dude");
+			SetPassengerSeat(f->Seats[3], "some dude");
+			SetPassengerSeat(f->Seats[4], "some dude");
+
+			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+
 		}
 
 			option = -1;
