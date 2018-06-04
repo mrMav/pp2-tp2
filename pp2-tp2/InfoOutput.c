@@ -23,6 +23,8 @@
 	<summary>Output information to the user</summary>
 */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -134,6 +136,56 @@ void PrintFlight(Flight* flight) {
 	printf("---\n");
 
 }
+/*
+Prints a flight pretty
+*/
+void PrintFlightPretty(Flight* flight) {
+
+	if (flight == NULL) {
+		
+		return;
+
+	}
+	
+	// header
+
+	int idstringsize = 9;
+	int shuttlenamesize = strlen(flight->AirplaneName);
+	int seatcapacitysize = 2;
+	int headerlength = 0;
+	char headertext[200];
+
+	sprintf(headertext, "| Departure: %i/%i/%i, ID: %ld, Shuttle name: %s, Seat capacity: %i |",
+		flight->Departure->tm_mday, flight->Departure->tm_mon + 1, flight->Departure->tm_year + 1900,
+		flight->ID->value,
+		flight->AirplaneName,
+		flight->SeatsNumber
+	);
+
+	headerlength = strlen(headertext);
+
+	PrintLine(headerlength);
+	printf(headertext);
+	printf("\n");
+	PrintLine(headerlength);
+
+
+	// seats
+	
+	for (int i = 0; i < flight->SeatsNumber; i++) {
+
+		char seattext[50];
+
+		printf("| Seat:%02i %s%s |\n",
+			i + 1,
+			flight->Seats[i]->IsOccupied == 0 ? "Free" : flight->Seats[i]->PassengerName,
+			flight->Seats[i]->IsPriority == 0 ? "" : "*"
+		);
+		
+	}
+	
+}
+
 
 /*
 Prints a line with the specified size of characters

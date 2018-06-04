@@ -36,7 +36,8 @@ int main() {
 		printf("5. List all flights\n");
 		printf("6. Get soonest flight\n");
 		printf("7. Set flight priority\n");
-		printf("8. Help\n");
+		printf("8. Print a specified flight in range\n");
+		printf("9. Help\n");
 		printf("x. Update Flights Status\n");
 
 
@@ -188,9 +189,15 @@ int main() {
 		case 6:
 		{
 			// get input
-			printf("### Get Soonest: ###\n");
+			printf("### Get Soonest With Available Seats: ###\n");
+			
+			printf("- Please input number of seats:\n");
 
-			PrintFlight(GetClosestFlightHoldPassengers(flights, 11, DaVinci));
+			int n;
+			scanf("%i", &n);
+			ClearInput();
+
+			PrintFlightPretty(GetClosestFlightHoldPassengers(flights, n, DaVinci));
 
 		}
 		option = -1;
@@ -232,8 +239,41 @@ int main() {
 
 #pragma endregion
 
-			// 9 fills with some flights to test
-		case 9:
+#pragma region [Print a specified flight in range]
+
+		case 8:
+		{
+			char startDateString[50];
+			char finishDateString[50];
+
+			struct tm* startDate;
+			struct tm* finishDate;
+			
+			// get input
+			printf("### Print a specified flight in range: ###\n");
+
+			printf("- Input begin date yyyy/mm/dd hh:mm:\n");
+
+			fgets(startDateString, sizeof(startDateString), stdin);
+			ClearInput();
+
+			printf("- Input finish date yyyy/mm/dd hh:mm:\n");
+
+			fgets(finishDateString, sizeof(finishDateString), stdin);
+			ClearInput();
+
+			startDate = NewDateFromString(startDateString);
+			finishDate = NewDateFromString(finishDateString);
+
+			PrintSpecifiedRange(flights, startDate, finishDate);
+
+		}
+		option = -1;
+		break;
+
+#pragma endregion
+			// 10 fills with some flights to test
+		case 10:
 		{
 			Flight* f = CreateFlight(
 				0,
@@ -284,6 +324,8 @@ int main() {
 
 			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
 
+			PrintFlightPretty(f);
+
 		}
 
 			option = -1;
@@ -291,7 +333,7 @@ int main() {
 
 #pragma region [Help Topics]
 
-		case 8:
+		case 9:
 
 			PrintLine(10);
 			printf("### Help topics: ###.\n");

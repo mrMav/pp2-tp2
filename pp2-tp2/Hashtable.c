@@ -379,20 +379,20 @@ void PrintHashTable(HashTable* ht) {
 
 		if (head == NULL) continue;
 
-		printf("%02i: ", i);
+		//printf("%02i: ", i);
 
 		while (head != NULL) {
 
-			printf("{key: %i, data: \n", head->key);
+			//printf("{key: %i, data: \n", head->key);
 
-			PrintFlight(head->flightData);
+			PrintFlightPretty(head->flightData);
 
-			printf("next: %p } -> \n", (void*)head->next);
+			//printf("next: %p } -> \n", (void*)head->next);
 
 			head = head->next;
 		}
 
-		printf("{ NULL } \n");
+		//printf("{ NULL } \n");
 
 	}
 
