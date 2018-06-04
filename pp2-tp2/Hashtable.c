@@ -299,6 +299,12 @@ Flight* CheckHashTableForFlightID(HashTable* ht, long int id) {
 	// extract key from id
 	int key = ExtractKeyFromID(id);
 
+	if (id < 1000000 && (key < 0 || key >= HASH_MAX_SIZE)) {
+
+		return NULL;
+
+	}
+
 	//printf("id is %ld, key is %i\n", id, key);
 
 	Node* head = ht->table[key];
