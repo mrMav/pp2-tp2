@@ -162,18 +162,17 @@ int main() {
 #pragma region [Print Flight]
 
 		case 4:
-		{
-			char buffer[13];
-
+		{			
 			// get input
 			printf("### Print Flight: ###\n");
 
 			printf("- Input flight ID:\n");
 
-			fgets(buffer, sizeof(buffer), stdin);
+			long int id;
+			scanf("%ld", &id);
 			ClearInput();
 
-			Flight* f = CheckHashTableForFlightID(flights, buffer);
+			Flight* f = CheckHashTableForFlightID(flights, id);
 
 			if (f != NULL) {
 
@@ -182,7 +181,7 @@ int main() {
 			}
 			else {
 
-				printf("The flight with id \"%s\" could not be found.\n", buffer);
+				printf("The flight with id \"%ld\" could not be found.\n", id);
 
 			}
 
@@ -201,6 +200,7 @@ int main() {
 			option = -1;
 			break;
 
+#pragma endregion
 			// 9 fills with some flights to test
 		case 9:
 		{
@@ -225,12 +225,21 @@ int main() {
 			);
 
 			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
+
+			f = CreateFlight(
+				0,
+				CreateDate(1, 1, 2018, 18, 20, 20),
+				NULL,
+				DaVinci->SeatsNumber,
+				CloneSeatsFromAirplane(DaVinci),
+				DaVinci->ShuttleName
+			);
+
+			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
 		}
 
 			option = -1;
 			break;
-
-#pragma endregion
 
 #pragma region [Help Topics]
 

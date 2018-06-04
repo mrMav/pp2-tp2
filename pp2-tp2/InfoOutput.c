@@ -91,7 +91,7 @@ void PrintFlight(Flight* flight) {
 
 	printf("---\n");
 
-	printf("ID: %s\n", flight->ID);
+	printf("ID: %ld\n", flight->ID->value);
 
 	printf("Flight Status: %s\n", flight->Status == 0 ? "Awaiting" : "Accomplished");
 	printf("Aircraft: %s\n", flight->AirplaneName);

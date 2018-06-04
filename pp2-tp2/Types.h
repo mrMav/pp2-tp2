@@ -29,6 +29,21 @@
 #include <time.h>
 
 /*
+Defines a Key struct to be used on ID creation
+and hashtable lookup
+*/
+typedef struct Key {
+
+	int ddd;
+	int yy;
+	int hh;
+	int mm;
+
+	long int value;
+
+} Key;
+
+/*
 Defines a seat in the airplane
 */
 typedef struct Seat {
@@ -81,10 +96,9 @@ typedef struct Flight {
 	char AirplaneName[100];
 
 	// unique identifier
-	char ID[13];
+	Key* ID;
 
 } Flight;
-
 
 #endif // !TYPES
 

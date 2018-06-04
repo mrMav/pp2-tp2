@@ -95,7 +95,9 @@ Flight* CreateFlight(int status, struct tm* departure, struct tm* arrive, unsign
 	f->SeatsNumber = seatsNumber;
 	f->Seats = seats;
 	strcpy(f->AirplaneName, airplaneName);
-	sprintf(f->ID, "%04d%02d%02d%02d%02d", departure->tm_year+1900, departure->tm_mon+1, departure->tm_mday, departure->tm_hour, departure->tm_min);
+	//sprintf(f->ID, "%04d%02d%02d%02d%02d", departure->tm_year+1900, departure->tm_mon+1, departure->tm_mday, departure->tm_hour, departure->tm_min);
+
+	f->ID = CreateKey(departure->tm_yday + 1, departure->tm_year + 1900 - 2000, departure->tm_hour, departure->tm_min);
 	
 	return f;
 
@@ -131,5 +133,25 @@ struct tm* CreateDate(int day, int month, int year, int hour, int minutes, int s
 	date = CloneStructtm(dateCalculated);
 
 	return date;
+
+}
+
+/*
+Create a Key structure
+*/
+Key* CreateKey(int ddd, int yy, int hh, int mm) {
+
+	Key* key = (Key*)malloc(sizeof(Key));
+
+	if (key == NULL) return NULL;
+
+	key->ddd = ddd;
+	key->yy = yy;
+	key->hh = hh;
+	key->mm = mm;
+
+	key->value = mm + hh * 100 + yy * 10000 + ddd * 1000000;
+
+	return key;
 
 }
