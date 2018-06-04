@@ -488,12 +488,14 @@ void UpdateFlightStatus(HashTable* flights, struct tm* currentdate) {
 				head->flightData->Arrive = CloneStructtm(localtime(&arrive_t));
 				head->flightData->Status = 1;
 
+				printf("Flight %ld arrived to it's destination! ", head->flightData->ID->value);
+
 				// save to file
 				int sucess = SaveFlightToFile(head->flightData);
 
 				if (sucess >= 0) {
 
-					printf("Saved flight %ld to file.\n", head->flightData->ID->value);
+					printf("Saved to file.\n", head->flightData->ID->value);
 
 				}
 
