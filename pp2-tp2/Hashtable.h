@@ -58,6 +58,10 @@ Node* CreateNode(int key, Flight* data);
 
 Node* AddNodeAfter(Node* node, Node* toAdd);
 
+Node* ListSortAscending(Node* head);
+
+void SwapNodes(Node* a, Node* b);
+
 int AddNodeToHashTable(HashTable* ht, Node* n);
 
 Node* RemoveNodeFromHashTable(HashTable* ht, int key);

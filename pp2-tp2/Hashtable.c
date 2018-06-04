@@ -106,6 +106,67 @@ Node* AddNodeAfter(Node* node, Node* toAdd) {
 
 }
 
+Node* ListSortAscending(Node* head) {
+
+	if (head == NULL) {
+		
+		return NULL;
+
+	}
+
+	// bubble sort method
+	// see: https://www.geeksforgeeks.org/c-program-bubble-sort-linked-list/
+
+	Node* start;
+	Node* finish = NULL;
+	int swapped;
+
+	do {
+
+		swapped = 0;
+		start = head;
+
+		while (start->next != finish) {
+
+			// sort criteria
+
+			time_t startTime = mktime(start->flightData->Departure);
+			time_t nextTime  = mktime(start->next->flightData->Departure);
+
+			if (startTime > nextTime) {
+
+				SwapNodes(start, start->next);
+				swapped = 1;
+
+			}
+
+			start = start->next;
+
+		}
+
+		// this is for circular lists:
+		//finish = start;
+
+	} while (swapped);
+
+
+	return head;
+
+}
+
+void SwapNodes(Node* a, Node* b) {
+
+	if (a == NULL || b == NULL) {
+		
+		return;
+
+	}
+
+	Flight* temp = a->flightData;
+	a->flightData = b->flightData;
+	b->flightData = temp;
+}
+
 int AddNodeToHashTable(HashTable* ht, Node* n) {
 
 	// error handling

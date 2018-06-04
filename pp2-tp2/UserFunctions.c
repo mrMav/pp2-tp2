@@ -77,6 +77,7 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 
 		AddNodeToHashTable(ht, CreateNode(f->ID->ddd, f));
 
+		ListSortAscending(ht, ht->table[HashFunction(f->ID->ddd)]);
 	}
 	else {
 
