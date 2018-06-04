@@ -41,12 +41,17 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane);
 /*
 Check for flight empty seats
 */
-int CheckFlightForSeats(HashTable* ht, char id[]);
+int CheckFlightForSeats(HashTable* ht, long int id);
 
 /*
 Lets the user book a seat
 */
-int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition);
+int BookFlightSeat(HashTable* ht, long int id, unsigned int seatPosition);
+
+/*
+Lets the user cancel a reservation
+*/
+int CancelBooking(HashTable* ht, long int id);
 
 /*
 Set a seat to a passenger
@@ -58,6 +63,15 @@ Set a seat free
 */
 Seat* FreePassengerSeat(Seat* seat);
 
+/*
+Request flight id to user
+*/
+long int RequestFlightID();
+
+/*
+request name to user
+*/
+void RequestName(char* buffer);
 
 #endif // !USERFUNCTIONS
 

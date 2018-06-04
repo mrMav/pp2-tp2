@@ -33,6 +33,11 @@
 #include "Types.h"
 
 /*
+Extract a key from an id
+*/
+int ExtractKeyFromID(long int id);
+
+/*
 Get the year day from a flight
 */
 int GetYearDayFromFlight(Flight* flight);

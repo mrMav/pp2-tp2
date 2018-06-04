@@ -73,7 +73,7 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 	);
 
 	// only add the flight if it is unique
-	if (CheckHashTableForFlightID(ht, f->ID) == NULL) {
+	if (CheckHashTableForFlightID(ht, f->ID->value) == NULL) {
 
 		AddNodeToHashTable(ht, CreateNode(f->ID->ddd, f));
 
@@ -92,7 +92,7 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 /*
 Check for flight empty seats
 */
-int CheckFlightForSeats(HashTable* ht, char id[]) {
+int CheckFlightForSeats(HashTable* ht, long int id) {
 
 	if (ht == NULL) {
 
@@ -138,7 +138,7 @@ int CheckFlightForSeats(HashTable* ht, char id[]) {
 /*
 Lets the user book a seat
 */
-int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition) {
+int BookFlightSeat(HashTable* ht, long int id, unsigned int seatPosition) {
 
 	if (ht == NULL) {
 
@@ -148,18 +148,20 @@ int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition) {
 	
 	Flight* flight = CheckHashTableForFlightID(ht, id);
 	
+	if (!(seatPosition > 0 && seatPosition <= flight->SeatsNumber)) {
+
+		return -3;
+
+	}
+
 	if (flight != NULL) {
 	
 		if (flight->Seats[seatPosition - 1]->IsOccupied == 0) {
 
-			printf("- Seat is available. Please input passenger name:\n");
+			printf("- Seat is available:\n");
 			
-			char buffer[100];
-
-			fgets(buffer, sizeof(buffer), stdin);
-			ClearInput();
-
-			buffer[strcspn(buffer, "\n")] = 0;  // takes the new line out, and replaces it with a terminator
+			char buffer[100];			
+			RequestName(buffer, sizeof(buffer));
 
 			SetPassengerSeat(flight->Seats[seatPosition - 1], buffer);
 			
@@ -168,6 +170,46 @@ int BookFlightSeat(HashTable* ht, char id[], unsigned int seatPosition) {
 			return 0;
 
 		}
+
+	}
+
+	return -2;
+
+}
+
+/*
+Lets the user cancel a reservation
+*/
+int CancelBooking(HashTable* ht, long int id) {
+
+	if (ht == NULL) {
+
+		return -1;
+
+	}
+
+	Flight* flight = CheckHashTableForFlightID(ht, id);
+
+	if (flight != NULL) {
+
+		printf("- Please input the passenger name:\n");
+
+		char buffer[100];
+		RequestName(buffer, sizeof(buffer));
+
+		for (int i = 0; i < flight->SeatsNumber; i++) {
+
+			if (strcmp(buffer, flight->Seats[i]->PassengerName) == 0) {
+
+				FreePassengerSeat(flight->Seats[i]);
+
+				return 0;
+
+			}
+
+		}
+
+		return -3;
 
 	}
 
@@ -192,5 +234,32 @@ Seat* FreePassengerSeat(Seat* seat) {
 
 	seat->IsOccupied = 0;
 	strcpy(seat->PassengerName, "");
+
+}
+
+/*
+Request flight id to user
+*/
+long int RequestFlightID() {
+
+	printf("- Input flight ID:\n");
+
+	long int id;
+	scanf("%ld", &id);
+	ClearInput();
+
+	return id;
+}
+
+/*
+request name to user
+*/
+void RequestName(char* buffer, size_t size) {
+
+	printf("- Input passenger name:\n");
+	fgets(buffer, size, stdin);
+	ClearInput();
+
+	buffer[strcspn(buffer, "\n")] = 0;  // takes the new line out, and replaces it with a terminator
 
 }

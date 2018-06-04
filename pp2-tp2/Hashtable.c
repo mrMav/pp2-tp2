@@ -34,6 +34,7 @@
 #include <string.h>
 #include "HashTable.h"
 #include "InfoOutput.h"
+#include "Utils.h"
 
 HashTable* CreateHashTable() {
 
@@ -235,9 +236,9 @@ Flight* CheckHashTableForFlightID(HashTable* ht, long int id) {
 	}
 
 	// extract key from id
-	int key = HashFunction(floor(id / 1000000));
+	int key = ExtractKeyFromID(id);
 
-	printf("key is %i\n", key);
+	printf("id is %ld, key is %i\n", id, key);
 
 	Node* head = ht->table[key];
 		

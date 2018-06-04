@@ -26,6 +26,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <time.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +34,15 @@
 #include "Types.h"
 #include "Utils.h"
 #include "CreateFunctions.h"
+
+/*
+Extract a key from an id
+*/
+int ExtractKeyFromID(long int id) {
+
+	return (int)floor(id / 1000000);
+
+}
 
 /*
 Get the year day from a flight

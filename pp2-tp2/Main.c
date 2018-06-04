@@ -86,25 +86,20 @@ int main() {
 
 		case 2:
 		{
-			char buffer[13];
-
 			// get input
 			printf("### Book flight seat: ###\n");
+			
+			long int id = RequestFlightID();
 
-			printf("- Input flight ID:\n");
-
-			fgets(buffer, sizeof(buffer), stdin);
-			ClearInput();
-
-			if (CheckFlightForSeats(flights, buffer) >= 0) {
+			if (CheckFlightForSeats(flights, id) >= 0) {
 
 				unsigned int seatPosition = 0;
 
 				printf("- Input seat Number:\n");
 				scanf("%i", &seatPosition);
 				ClearInput();
-
-				BookFlightSeat(flights, buffer, seatPosition);
+				
+				BookFlightSeat(flights, id, seatPosition);
 
 			}
 			else {
@@ -123,28 +118,16 @@ int main() {
 
 		case 3:
 		{
-			char buffer[13];
-
 			// get input
 			printf("### Cancel flight booking: ###\n");
+			
+			long int id = RequestFlightID();
+			
+			int result = CancelBooking(flights, id);
 
-			printf("- Input flight ID:\n");
+			if (result >= 0) {
 
-			fgets(buffer, sizeof(buffer), stdin);
-			ClearInput();
-
-			Flight* f = CheckHashTableForFlightID(flights, buffer);
-
-			if (f != NULL) {
-
-				char name[100];
-
-				printf("- Input passenger name:\n");
-				fgets(buffer, sizeof(buffer), stdin);
-				ClearInput();
-
-				// cancel flight
-
+				printf("Sucessfuly canceled reservation.\n");
 
 			}
 			else {
@@ -152,8 +135,8 @@ int main() {
 				printf("An error occurred while booking the flight.\n");
 
 			}
-
 		}
+
 		option = -1;
 		break;
 
@@ -165,13 +148,9 @@ int main() {
 		{			
 			// get input
 			printf("### Print Flight: ###\n");
-
-			printf("- Input flight ID:\n");
-
-			long int id;
-			scanf("%ld", &id);
-			ClearInput();
-
+			
+			long int id = RequestFlightID();
+			
 			Flight* f = CheckHashTableForFlightID(flights, id);
 
 			if (f != NULL) {
