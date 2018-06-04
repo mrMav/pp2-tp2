@@ -30,6 +30,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <math.h>
 #include <string.h>
 #include "HashTable.h"
 #include "InfoOutput.h"
@@ -224,7 +225,7 @@ Node* RemoveNodeFromHashTable(HashTable* ht, int key) {
 /*
 Returns flight data from the hashtable, by the unique identifier
 */
-Flight* CheckHashTableForFlightID(HashTable* ht, char* ID) {
+Flight* CheckHashTableForFlightID(HashTable* ht, long int id) {
 
 	// error handling
 	if (ht == NULL) {
@@ -233,21 +234,22 @@ Flight* CheckHashTableForFlightID(HashTable* ht, char* ID) {
 
 	}
 
-	for (int i = 0; i < HASH_MAX_SIZE; i++) {
+	// extract key from id
+	int key = HashFunction(floor(id / 1000000));
 
-		Node* head = ht->table[i];
+	printf("key is %i\n", key);
+
+	Node* head = ht->table[key];
 		
-		while (head != NULL) {
+	while (head != NULL) {
 
-			if (strcmp(head->flightData->ID, ID) == 0) {
+		if (head->flightData->ID->value == id) {
 
-				return head->flightData;
+			return head->flightData;
 
-			}
-
-			head = head->next;
 		}
-		
+
+		head = head->next;
 	}
 
 	return NULL;

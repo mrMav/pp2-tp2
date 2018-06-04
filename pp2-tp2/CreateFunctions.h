@@ -51,5 +51,10 @@ Create a date structure
 */
 struct tm* CreateDate(int day, int month, int year, int hour, int minutes, int seconds);
 
+/*
+Create a Key structure
+*/
+Key* CreateKey(int ddd, int yy, int hh, int mm);
+
 #endif // !CREATEFUNCTIONS
 
