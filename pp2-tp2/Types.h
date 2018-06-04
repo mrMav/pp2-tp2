@@ -54,6 +54,8 @@ typedef struct Seat {
 
 	int IsOccupied;
 
+	int IsPriority;
+
 	unsigned int Number;
 
 	char PassengerName[100];
@@ -83,6 +85,8 @@ typedef struct Flight {
 
 	// 0: awaiting, 1: accomplished 
 	int Status;
+
+	int IsPriority;
 
 	// departure time
 	struct tm* Departure;

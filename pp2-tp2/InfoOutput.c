@@ -44,6 +44,7 @@ void PrintSeat(Seat* seat) {
 	}
 
 	printf("Seat number: %i\n", seat->Number);
+	printf("Seat priority status: %i\n", seat->IsPriority);
 	printf("Seat status: %s\n", seat->IsOccupied == 0 ? "Free" : "Occupied");
 	printf("Passenger Name: %s\n", seat->PassengerName);
 
@@ -94,6 +95,7 @@ void PrintFlight(Flight* flight) {
 	printf("ID: %ld\n", flight->ID->value);
 
 	printf("Flight Status: %s\n", flight->Status == 0 ? "Awaiting" : "Accomplished");
+	printf("Flight Priority Status: %i\n", flight->IsPriority);
 	printf("Aircraft: %s\n", flight->AirplaneName);
 
 	

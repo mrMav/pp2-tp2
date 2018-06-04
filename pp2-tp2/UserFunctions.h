@@ -76,12 +76,26 @@ long int RequestFlightID();
 /*
 request name to user
 */
-void RequestName(char* buffer);
+void RequestName(char* buffer, size_t size);
 
 /*
 get closest flight to hold n passengers
 */
 Flight* GetClosestFlightHoldPassengers(HashTable* ht, int n, Airplane* plane);
+
+/*
+Sets a flight priority
+0: not priority
+1: priority
+*/
+void SetFlightPriority(Flight* f, int i);
+
+/*
+Sets a seat priority
+0: not priority
+1: priority
+*/
+void SetSeatPriority(Seat* s, int i);
 
 #endif // !USERFUNCTIONS
 

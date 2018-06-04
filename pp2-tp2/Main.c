@@ -35,6 +35,7 @@ int main() {
 		printf("4. Print a specified flight\n");
 		printf("5. List all flights\n");
 		printf("6. Get soonest flight\n");
+		printf("7. Set flight priority\n");
 		printf("8. Help\n");
 		printf("x. Update Flights Status\n");
 
@@ -197,6 +198,40 @@ int main() {
 
 #pragma endregion
 
+#pragma region [Set Flight Priority]
+
+		case 7:
+		{
+			// get input
+			printf("### Set Flight Priority: ###\n");
+
+			long int id = RequestFlightID();
+
+			Flight* f = CheckHashTableForFlightID(flights, id);
+
+			if (f != NULL) {
+
+				printf("- Input desired priority status? (0: No, 1: Yes)\n(Current is %i.)\n", f->IsPriority);
+
+				int p;
+				scanf("%i", &p);
+				ClearInput();
+
+				SetSeatPriority(f, p);
+
+			}
+			else {
+
+				printf("The flight with id \"%ld\" could not be found.\n", id);
+
+			}
+
+		}
+		option = -1;
+		break;
+
+#pragma endregion
+
 			// 9 fills with some flights to test
 		case 9:
 		{
@@ -260,7 +295,7 @@ int main() {
 
 			PrintLine(10);
 			printf("### Help topics: ###.\n");
-			printf("-> The flights ID are in the format yyyymmddhhmm.\n");
+			printf("-> The flights ID are in the format dddyyhhmm.\n");
 			PrintLine(10);
 
 			option = -1;

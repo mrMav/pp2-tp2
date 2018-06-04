@@ -72,6 +72,14 @@ Flight* CreateNewFlight(HashTable* ht, Airplane* airplane) {
 
 	);
 
+	printf("- Is this flight priority? (0: No, 1: Yes)\n");
+
+	int p;
+	scanf("%i", &p);
+	ClearInput();
+
+	SetFlightPriority(f, p);
+
 	// only add the flight if it is unique
 	if (CheckHashTableForFlightID(ht, f->ID->value) == NULL) {
 
@@ -161,10 +169,18 @@ int BookFlightSeat(HashTable* ht, long int id, unsigned int seatPosition) {
 
 			printf("- Seat is available:\n");
 			
-			char buffer[100];			
+			char buffer[100];
 			RequestName(buffer, sizeof(buffer));
 
 			SetPassengerSeat(flight->Seats[seatPosition - 1], buffer);
+
+			printf("- Is this seat priority? (0: No, 1: Yes)\n");
+
+			int p;
+			scanf("%i", &p);
+			ClearInput();
+
+			SetSeatPriority(flight->Seats[seatPosition - 1], p);
 			
 			printf("Sucessfuly booked seat!\n");
 
@@ -255,6 +271,7 @@ Set a seat free
 Seat* FreePassengerSeat(Seat* seat) {
 
 	seat->IsOccupied = 0;
+	seat->IsPriority = 0;
 	strcpy(seat->PassengerName, "");
 
 }
@@ -378,5 +395,27 @@ Flight* GetClosestFlightHoldPassengers(HashTable* ht, int n, Airplane* plane) {
 		currentColumnToCheck++;
 
 	}
+
+}
+
+/*
+Sets a flight priority
+0: not priority
+1: priority
+*/
+void SetFlightPriority(Flight* f, int i) {
+
+	f->IsPriority = i;
+
+}
+
+/*
+Sets a seat priority
+0: not priority
+1: priority
+*/
+void SetSeatPriority(Seat* s, int i) {
+
+	s->IsPriority = i;
 
 }
