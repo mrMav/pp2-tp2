@@ -14,6 +14,8 @@
 
 int main() {
 	
+	srand(time(NULL)); // time based seed
+
 	// the data structure where all the flights
 	// are stored
 	HashTable* flights = CreateHashTable();
@@ -21,13 +23,16 @@ int main() {
 	// the only current available aircraft
 	Airplane* DaVinci = CreateAirplane("DaVinci", 12);
 
+	// the current time
+	struct tm* CurrentDate = NewDateFromString("2018/06/04");
+
 	// init program menu
 	int option = -1;
 	int exit = 1;
 
 	while (exit) {
 
-		printf("ESTAir - Flight Management\n");
+		printf("ESTAir - Flight Management - %i/%i/%i\n", CurrentDate->tm_year + 1900, CurrentDate->tm_mon + 1, CurrentDate->tm_mday);
 		printf("0. Exit\n");
 		printf("1. Create new flight\n");
 		printf("2. Book flight seat\n");
@@ -37,8 +42,8 @@ int main() {
 		printf("6. Get soonest flight\n");
 		printf("7. Set flight priority\n");
 		printf("8. Print a specified flight in range\n");
-		printf("9. Help\n");
-		printf("x. Update Flights Status\n");
+		printf("9. Advance day\n");
+		printf("10. Help\n");
 
 
 		PrintLine(10);
@@ -69,7 +74,7 @@ int main() {
 			if (f != NULL) {
 
 				printf("Successfuly created flight:\n");
-				PrintFlight(f);
+				PrintFlightPretty(f);
 					
 			}
 			else {
@@ -158,7 +163,7 @@ int main() {
 
 			if (f != NULL) {
 
-				PrintFlight(f);
+				PrintFlightPretty(f);
 
 			}
 			else {
@@ -272,8 +277,45 @@ int main() {
 		break;
 
 #pragma endregion
-			// 10 fills with some flights to test
+			
+#pragma region [Advance Day]
+
+		case 9:
+		{
+			CurrentDate->tm_mday++;
+
+			time_t current_t = mktime(CurrentDate);
+
+			CurrentDate = CloneStructtm(localtime(&current_t));
+
+			// update status of all flights
+			UpdateFlightStatus(flights, CloneStructtm(CurrentDate));
+
+
+			printf("Advanced one day!\n");
+		}
+			option = -1;
+			break;
+
+#pragma endregion
+
+#pragma region [Help Topics]
+
 		case 10:
+		{					
+			PrintLine(10);
+			printf("### Help topics: ###.\n");
+			printf("-> The flights ID are in the format dddyyhhmm;\n");
+			printf("-> '*' means that a seat or flight is a priority.\n");
+			PrintLine(10);
+		}
+		option = -1;
+		break;
+
+#pragma endregion
+
+		// 11 fills with some flights to test
+		case 11:
 		{
 			Flight* f = CreateFlight(
 				0,
@@ -324,26 +366,15 @@ int main() {
 
 			AddNodeToHashTable(flights, CreateNode(GetYearDayFromFlight(f), f));
 
-			PrintFlightPretty(f);
+			//PrintFlightPretty(f);
+
+			//UpdateFlightStatus(flights, CloneStructtm(CurrentDate));
 
 		}
 
-			option = -1;
-			break;
+		option = -1;
+		break;
 
-#pragma region [Help Topics]
-
-		case 9:
-
-			PrintLine(10);
-			printf("### Help topics: ###.\n");
-			printf("-> The flights ID are in the format dddyyhhmm.\n");
-			PrintLine(10);
-
-			option = -1;
-			break;
-
-#pragma endregion
 
 		default:
 

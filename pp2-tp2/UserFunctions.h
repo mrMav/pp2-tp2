@@ -102,6 +102,16 @@ Prints flight from a specified date range
 */
 void PrintSpecifiedRange(HashTable* flights, struct tm* start, struct tm* finish);
 
+/*
+Updates Status of all flights based on time
+*/
+void UpdateFlightStatus(HashTable* flights, struct tm* currentdate);
+
+/*
+Save flight to file
+*/
+int SaveFlightToFile(Flight* flight);
+
 
 #endif // !USERFUNCTIONS
 

@@ -299,7 +299,7 @@ Flight* CheckHashTableForFlightID(HashTable* ht, long int id) {
 	// extract key from id
 	int key = ExtractKeyFromID(id);
 
-	printf("id is %ld, key is %i\n", id, key);
+	//printf("id is %ld, key is %i\n", id, key);
 
 	Node* head = ht->table[key];
 		

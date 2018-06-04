@@ -155,11 +155,13 @@ void PrintFlightPretty(Flight* flight) {
 	int headerlength = 0;
 	char headertext[200];
 
-	sprintf(headertext, "| Departure: %i/%i/%i, ID: %ld, Shuttle name: %s, Seat capacity: %i |",
+	sprintf(headertext, "| Departure: %i/%i/%i%s, ID: %ld, Shuttle name: %s, Seat capacity: %i, Status: %s|",
 		flight->Departure->tm_mday, flight->Departure->tm_mon + 1, flight->Departure->tm_year + 1900,
+		flight->IsPriority == 0 ? "" : "*",
 		flight->ID->value,
 		flight->AirplaneName,
-		flight->SeatsNumber
+		flight->SeatsNumber,
+		flight->Status == 0 ? "Awaiting" : "Accomplished"
 	);
 
 	headerlength = strlen(headertext);

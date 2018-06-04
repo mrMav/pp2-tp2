@@ -455,3 +455,88 @@ void PrintSpecifiedRange(HashTable* flights, struct tm* start, struct tm* finish
 	}
 
 }
+
+/*
+Updates Status of all flights based on time
+*/
+void UpdateFlightStatus(HashTable* flights, struct tm* currentdate) {
+	
+	if (flights == NULL) {
+
+		return;
+
+	}
+
+	time_t current_t = mktime(currentdate);
+
+	for (int i = 0; i < HASH_MAX_SIZE; i++) {
+
+		Node* head = flights->table[i];
+
+		while (head != NULL) {
+
+			time_t flightTime = mktime(head->flightData->Departure);
+
+			if (current_t >= flightTime) {
+
+				struct tm* arrive = CloneStructtm(head->flightData->Departure);
+				arrive->tm_hour += 1;
+				arrive->tm_min += rand() % 10;
+
+				time_t arrive_t = mktime(arrive);
+
+				head->flightData->Arrive = CloneStructtm(localtime(&arrive_t));
+				head->flightData->Status = 1;
+
+				// save to file
+				int sucess = SaveFlightToFile(head->flightData);
+
+				if (sucess >= 0) {
+
+					printf("Saved flight %ld to file.\n", head->flightData->ID->value);
+
+				}
+
+			}
+
+			head = head->next;
+		}
+
+	}
+
+}
+
+/*
+Save flight to file
+*/
+int SaveFlightToFile(Flight* flight) {
+
+	if (flight == NULL) {
+
+		return -1;
+
+	}
+
+	char filename[50];
+
+	// using the id instead of the date
+	sprintf(filename, "voo%ld.dat", flight->ID->value);
+
+	FILE* f;
+	f = fopen(filename, "wb");
+
+	if (f == NULL) {
+
+		return -2;
+
+	}
+
+	// write
+	fwrite(flight, sizeof(Flight), 1, f);
+
+	fclose(f);
+	f = NULL;
+	
+	return 0;
+
+}
